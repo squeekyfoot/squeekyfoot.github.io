@@ -1,0 +1,192 @@
+body {
+  /*display: block;*/
+  /*width: 70%;
+  margin: auto;*/
+  background-image: url("../img/traffic.jpg");
+  /*background-color: #4d8e72;*/
+}
+
+#container {
+  display: block;
+  width: 70%;
+  height: 900px;
+  margin: auto;
+}
+
+#surveyChart {
+  display: block;
+  width: 100%;
+  margin: 30px auto;
+  background-color: #ffffff;
+  border: 2px black solid;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+#surveyProducts {
+  background-color: #ffffff;
+}
+
+h1, h2, h3 {
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-family: 'Lobster', cursive;
+  margin: 3px;
+}
+
+#flash1 {
+  animation-name: flash1;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+#flash2 {
+  animation-name: flash2;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+#flash3 {
+  animation-name: flash3;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+header {
+  /*width: 98%;*/
+  margin: auto;
+  border: 2px black solid;
+  font-size: 1.5em;
+  border-radius: 15px;
+  background-color: #ffffff;
+}
+
+#welcomeSection {
+  border: 2px black solid;
+  border-radius: 15px;
+  margin: 30px auto;
+}
+
+#welcomeText {
+  display: block;
+  width: 60%;
+  margin: 10px auto;
+  font-family: cursive;
+  font-size: 1.2em;
+}
+
+a {
+  display: block;
+  width: 60%;
+  margin: auto;
+  text-decoration: none;
+}
+
+button {
+  display: block;
+  width: 50%;
+  height: 50px;
+  margin: 50px auto;
+  border-radius: 15px;
+  font-size: 1.5em;
+  transition: 1.5s;
+}
+
+button:hover {
+  transform: scale(1.5, 1.5);
+}
+
+main {
+  display: block;
+  width: 100%;
+  margin: auto;
+  background-color: #ffffff;
+}
+
+figure {
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  width: 33.3%;
+  margin: 30px auto;
+  transition: 1.5s;
+}
+
+figure:hover {
+  transform: scale(1.5, 1.5);
+}
+
+img {
+  width: 94%;
+  display: block;
+  margin: auto;
+  border: 2px black solid;
+  border-radius: 15px;
+}
+
+figcaption {
+  width: 94%;
+  display: block;
+  margin: 30px auto;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 1.5em;
+  background-color: #ffffff;
+  border: 2px black solid;
+  border-radius: 15px;
+}
+
+@keyframes flash1 {
+  0% {
+    color: #000000;
+  }
+  25% {
+    color: #f4e842;
+  }
+  50% {
+    color: #000000;
+  }
+  75% {
+    color: #000000;
+  }
+  100% {
+    color: #000000;
+  }
+}
+
+@keyframes flash2 {
+  0% {
+    color: #000000;
+  }
+  25% {
+    color: #000000;
+  }
+  50% {
+    color: #f4e842;
+  }
+  75% {
+    color: #000000;
+  }
+  100% {
+    color: #000000;
+  }
+}
+
+@keyframes flash3 {
+  0% {
+    color: #000000;
+  }
+  25% {
+    color: #000000;
+  }
+  50% {
+    color: #000000;
+  }
+  75% {
+    color: #f4e842;
+  }
+  100% {
+    color: #000000;
+  }
+}
