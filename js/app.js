@@ -1,68 +1,58 @@
 'use strict';
 
-// Declare global variables:
-
-var allProducts = [];
 var productNames = [];
 var questionNumber = getQuestionNumber();
 var alreadyUsed = [];
 var chartData = [];
-var chartColors = [];
+// var chartColors = [];
 var randomProduct;
 var leftChoice;
 var middleChoice;
 var rightChoice;
+// var random = 0;
 
-// Get the object data from local storage
-// If no data present, create new objects to store
+var bag = new Product('bag', 'R2D2 Bag');
+var banana = new Product('banana', 'Banana Slicer');
+var bathroom = new Product('bathroom', 'Bathroom Tablet Holder');
+var boots = new Product('boots', 'Boot Shoe Covers');
+var breakfast = new Product('breakfast', 'Complete Breakfast Maker');
+var bubblegum = new Product('bubblegum', 'Meatball Bubble Gum');
+var chair = new Product('chair', 'Super-Uncomfortable Chair');
+var cthulhu = new Product('cthulhu', 'Cthulhu Action Figure');
+var dog_duck = new Product('dog_duck', 'The Old Duck-Dog');
+var dragon = new Product('dragon', 'Can of Dragon Meat');
+var pen = new Product('pen', 'Utencil Caps');
+var pet_sweep = new Product('pet_sweep', 'Pet Sweeping Boots');
+var scissors = new Product('scissors', 'Pizza Scissors');
+var shark = new Product('shark', 'Shark Sleeping Bag');
+var sweep = new Product('sweep', 'Baby Sweeping Outfit');
+var tauntaun = new Product('tauntaun', 'Dead Tauntaun Sleeping Bag');
+var unicorn = new Product('unicorn', 'Can of Unicorn Meat');
+var usb = new Product('usb', 'USB Tentacle Arm');
+var water_can = new Product('water_can', 'Functional Water Can');
+var wine_glass = new Product('wine_glass', 'Best Wine Glass');
 
-loadClicks();
-createAllProducts();
+var allProducts = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dog_duck, dragon, pen, pet_sweep, scissors, shark, sweep, tauntaun, unicorn, usb, water_can, wine_glass];
 
-
-// Object constructor for all products
 
 function Product (name, friendlyName) {
+  // this.name = name;
   this.name = name;
   this.friendlyName = friendlyName;
   this.timesChosen = 0;
   this.source = 'img/' + this.name + '.jpg';
-  allProducts.push(this);
-  productNames.push(this.name);
 }
 
-// Create all of the products using the constructor
-
-function createAllProducts () {
-  var bag = new Product('bag', 'R2D2 Bag');
-  var banana = new Product('banana', 'Banana Slicer');
-  var bathroom = new Product('bathroom', 'Bathroom Tablet Holder');
-  var boots = new Product('boots', 'Boot Shoe Covers');
-  var breakfast = new Product('breakfast', 'Complete Breakfast Maker');
-  var bubblegum = new Product('bubblegum', 'Meatball Bubble Gum');
-  var chair = new Product('chair', 'Super-Uncomfortable Chair');
-  var cthulhu = new Product('cthulhu', 'Cthulhu Action Figure');
-  var dog_duck = new Product('dog_duck', 'The Old Duck-Dog');
-  var dragon = new Product('dragon', 'Can of Dragon Meat');
-  var pen = new Product('pen', 'Utencil Caps');
-  var pet_sweep = new Product('pet_sweep', 'Pet Sweeping Boots');
-  var scissors = new Product('scissors', 'Pizza Scissors');
-  var shark = new Product('shark', 'Shark Sleeping Bag');
-  var sweep = new Product('sweep', 'Baby Sweeping Outfit');
-  var tauntaun = new Product('tauntaun', 'Dead Tauntaun Sleeping Bag');
-  var unicorn = new Product('unicorn', 'Can of Unicorn Meat');
-  var usb = new Product('usb', 'USB Tentacle Arm');
-  var water_can = new Product('water_can', 'Functional Water Can');
-  var wine_glass = new Product('wine_glass', 'Best Wine Glass');
+for (var i = 0; i < allProducts.length; i++) {
+  productNames.push(allProducts[i].name);
 }
 
-// Render the first three product choices
 
 function renderInitialChoices () {
   for (var i = 0; i < 3; i++) {
-    var random = Math.floor(Math.random() * productNames.length);
-    while (alreadyUsed.indexOf(productNames[random]) > -1) {
-      random = Math.floor(Math.random() * productNames.length);
+    randomProduct = Math.floor(Math.random() * productNames.length);
+    while (alreadyUsed.indexOf(productNames[randomProduct]) >= 0) {
+      randomProduct = Math.floor(Math.random() * productNames.length);
     };
     var counter = document.getElementById('counter');
     counter.textContent = 'Question ' + questionNumber + ' of 25';
@@ -73,27 +63,25 @@ function renderInitialChoices () {
     figure.setAttribute('id', 'figure' + i);
     var img = document.createElement('img');
     img.setAttribute('id', 'img' + i);
-    img.setAttribute('src', 'img/' + productNames[random] + '.jpg');
+    img.setAttribute('src', 'img/' + productNames[randomProduct] + '.jpg');
     var figcaption = document.createElement('figcaption');
     figcaption.setAttribute('id', 'caption' + i);
-    figcaption.textContent = allProducts[random].friendlyName;
+    figcaption.textContent = allProducts[randomProduct].friendlyName;
 
     if (i === 0) {
-      leftChoice = allProducts[random];
+      leftChoice = randomProduct;
     } else if (i === 1) {
-      middleChoice = allProducts[random];
+      middleChoice = randomProduct;
     } else {
-      rightChoice = allProducts[random];
+      rightChoice = randomProduct;
     }
 
     parentElement.appendChild(figure);
     figure.appendChild(img);
     figure.appendChild(figcaption);
-    alreadyUsed.push(productNames[random]);
+    alreadyUsed.push(productNames[randomProduct]);
   }
 }
-
-// Check local storage for question number
 
 if (questionNumber > 25) {
   displayChart();
@@ -102,18 +90,15 @@ if (questionNumber > 25) {
   startEventListeners();
 }
 
-// Set up the three different event listeners for each image/text group
-
-// Left Product:
 function startEventListeners () {
   var leftProduct = document.getElementById('figure0');
   leftProduct.addEventListener('click', function(){
     // addClick(leftChoice);
     incrementClicks(leftChoice);
-    storeClicks();
+    // storeClicks();
     resetChoices();
 
-    leftChoice = allProducts[randomProduct];
+    leftChoice = randomProduct;
     alreadyUsed.splice(0, 3);
 
     var counter = document.getElementById('counter');
@@ -124,17 +109,15 @@ function startEventListeners () {
       displayChart();
     }
   });
-
-  // Middle Product:
 
   var middleProduct = document.getElementById('figure1');
   middleProduct.addEventListener('click', function(){
     // addClick(middleChoice);
     incrementClicks(middleChoice);
-    storeClicks();
+    // storeClicks();
     resetChoices();
 
-    middleChoice = allProducts[randomProduct];
+    middleChoice = randomProduct;
     alreadyUsed.splice(0, 3);
 
     var counter = document.getElementById('counter');
@@ -146,16 +129,14 @@ function startEventListeners () {
     }
   });
 
-  // Right product:
-
   var rightProduct = document.getElementById('figure2');
   rightProduct.addEventListener('click', function(){
     // addClick(rightChoice);
     incrementClicks(rightChoice);
-    storeClicks();
+    // storeClicks();
     resetChoices();
 
-    rightChoice = allProducts[randomProduct];
+    rightChoice = randomProduct;
     alreadyUsed.splice(0, 3);
 
     var counter = document.getElementById('counter');
@@ -167,13 +148,6 @@ function startEventListeners () {
     }
   });
 }
-
-
-////////////////////////////////////////////////////////////////
-// All global functions defined below:
-////////////////////////////////////////////////////////////////
-
-
 
 function displayChart () {
   parent = document.getElementById('container');
@@ -190,7 +164,7 @@ function displayChart () {
   canvas.setAttribute('height', '400');
   child.appendChild(canvas);
 
-  generateColors();
+  // generateColors();
   retrieveChartData();
 
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -201,8 +175,8 @@ function displayChart () {
       datasets: [{
         label: 'Total Product Votes',
         data: chartData,
-        backgroundColor: chartColors,
-        borderColor: chartColors,
+        backgroundColor: '#114f1e',
+        borderColor: '#114f1e',
         borderWidth: 1
       }]
     },
@@ -231,19 +205,21 @@ function displayChart () {
 }
 
 function retrieveChartData () {
+  var loadedChartData = localStorage.getItem('products');
+  var parsedChartData = JSON.parse(loadedChartData);
   for (var i = 0; i < productNames.length; i++) {
-    chartData.push(allProducts[i].timesChosen);
+    chartData.push(parsedChartData[i].timesChosen);
   }
 }
-
-function generateColors () {
-  for (var i = 0; i < productNames.length; i++) {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    chartColors.push('rgb(' + r + ', ' + g + ' ,' + b + ')');
-  }
-}
+//
+// function generateColors () {
+//   for (var i = 0; i < productNames.length; i++) {
+//     var r = Math.floor(Math.random() * 255);
+//     var g = Math.floor(Math.random() * 255);
+//     var b = Math.floor(Math.random() * 255);
+//     chartColors.push('rgb(' + r + ', ' + g + ' ,' + b + ')');
+//   }
+// }
 
 function resetChoices () {
   for (var i = 0; i < 3; i++) {
@@ -261,20 +237,54 @@ function resetChoices () {
   }
 }
 
-function storeClicks () {
-  var stringedProducts = JSON.stringify(allProducts);
-  localStorage.setItem('allProducts', stringedProducts);
+function storeClicks (productData) {
+  // var productData = {
+  //   bag: bag.timesChosen,
+  //   banana: banana.timesChosen,
+  //   bathroom: bathroom.timesChosen,
+  //   boots: boots.timesChosen,
+  //   breakfast: breakfast.timesChosen,
+  //   bubblegum: bubblegum.timesChosen,
+  //   chair: chair.timesChosen,
+  //   cthulhu: cthulhu.timesChosen,
+  //   dog_duck: dog_duck.timesChosen,
+  //   dragon: dragon.timesChosen,
+  //   pen: pen.timesChosen,
+  //   pet_sweep: pet_sweep.timesChosen,
+  //   scissors: scissors.timesChosen,
+  //   shark: shark.timesChosen,
+  //   sweep: sweep.timesChosen,
+  //   tauntaun: tauntaun.timesChosen,
+  //   unicorn: unicorn.timesChosen,
+  //   usb: usb.timesChosen,
+  //   water_can: water_can.timesChosen,
+  //   wine_glass: wine_glass.timesChosen};
+
+
+
+
+  var storedProjectData = JSON.stringify(productData);
+  localStorage.setItem('products', storedProjectData);
 }
 
-function incrementClicks (product) {
-  product.timesChosen++;
+function loadClicks() {
+  // if local storage exists, load product data
+  if (localStorage.length > 1) {
+    var storedProjectData = localStorage.getItem('products');
+    var loadedProjectData = JSON.parse(storedProjectData);
+    return loadedProjectData;
+  } else {
+  // else if doesnt exist, load up new data from the program
+    return allProducts;
+  }
 }
 
-function loadClicks () {
-  var clicks = localStorage.getItem('allProducts');
-  // if (clicks !== null) {
-  allProducts = JSON.parse(clicks);
-  // }
+function incrementClicks(choice) {
+  var loadedProjectData = loadClicks();
+  //locate object in allProduts [] using productName
+  loadedProjectData[choice].timesChosen++;
+  storeClicks(loadedProjectData);
+  //increment timesChosen number
 }
 
 function incrementQuestionNumber () {
@@ -299,6 +309,6 @@ function getQuestionNumber () {
 }
 
 function deleteQuestionNumber () {
-  localStorage.removeItem('questionNumber');
+  localStorage.clear();
   return null;
 }
